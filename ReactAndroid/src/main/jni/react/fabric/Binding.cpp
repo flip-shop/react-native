@@ -483,8 +483,7 @@ void Binding::schedulerShouldRenderTransactions(
     return;
   }
 
-  if (ReactNativeFeatureFlags::
-          allowRecursiveCommitsWithSynchronousMountOnAndroid()) {
+
     std::vector<MountingTransaction> pendingTransactions;
 
     {
@@ -498,13 +497,6 @@ void Binding::schedulerShouldRenderTransactions(
     for (auto& transaction : pendingTransactions) {
       mountingManager->executeMount(transaction);
     }
-  } else {
-    std::unique_lock<std::mutex> lock(pendingTransactionsMutex_);
-    for (auto& transaction : pendingTransactions_) {
-      mountingManager->executeMount(transaction);
-    }
-    pendingTransactions_.clear();
-  }
 }
 
 void Binding::schedulerDidRequestPreliminaryViewAllocation(
