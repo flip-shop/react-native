@@ -135,6 +135,7 @@ val installCMake by
 
 val configureBuildForHermes by
     tasks.registering(Exec::class) {
+      dependsOn(installCMake)
       workingDir(hermesDir)
       inputs.dir(hermesDir)
       outputs.files(hermesBuildOutputFileTree)
