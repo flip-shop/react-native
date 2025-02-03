@@ -392,6 +392,11 @@ LayoutAnimationKeyFrameManager::pullTransaction(
                 if (keyframe.type == AnimationConfigurationType::Update &&
                     mutation.newChildShadowView.tag > 0) {
                   keyframe.viewPrev = mutation.newChildShadowView;
+                  keyframe.parentView = mutation.parentShadowView;
+                  react_native_assert(
+                      keyframe.finalMutationsForKeyFrame.size() == 1);
+                  keyframe.finalMutationsForKeyFrame[0].parentShadowView =
+                      mutation.parentShadowView;
                 }
               }
             }
